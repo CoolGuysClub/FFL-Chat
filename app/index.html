@@ -28,27 +28,57 @@
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
 
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#" id="Login">Login</a></li>
-        </ul>
-        <h3 class="text-muted">FFL Chat</h3>
-      </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="nav navbar-nav">
 
-      <div class="jumbotron">
-        <h1>Hey FFL-Chat</h1>
-        <p class="lead">Welcome <span id="userName"></span></p>
-      </div>
-      <div id="chatBox"></div>
+            <li><a href="#"></a></li>
 
-      <div class="footer">
-        <p>♥ from the Yeoman team</p>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="userName"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="Logout">Logout</a></li>
+                <li class="divider"></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+      <header>
+        <div id="intro">
+          <h1>Hey and welcome to FFL-Chat!</h1>
+          <a href="#" class="btn btn-primary" id="Login">Login</a>
+        </div>
+        <div id="welcome">
+          <p class="lead">Welcome <span class="userName"></span></p>
+        </div>
+      </header>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-8">
+            <h3 class="text-muted">Chat Area</h3>
+          </div>
+          <div class="col-lg-4">
+            <h3 class="text-center">Chat Map Area</h3>
+          </div>
+        </div>
       </div>
-    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
