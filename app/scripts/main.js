@@ -42,10 +42,38 @@ $(function () {
   });
   $('.userName').text(authData.github.username);
 }
+
+// Loggin the user out
 $('#Logout').click(function() {
   firebaseRef.unauth();
   location.reload();
 });
+//See which room is here...
+fireChat.getRoomList(function (room) {
+  console.log(room);
+});
+//get specific room metadata
+fireChat.getRoom('-KGSfZGEbRU5tSOCKH6v', function (roomId) {
+  console.log(roomId);
+});
+// function roomId() {
+//
+// }
+//Sending a Message...
+var chatForm = $('#chatForm');
+chatForm.submit(function (elof) {
+  elof.preventDefault();
+  var chatMsg = $('#chatMsg').val();
+  console.log(chatMsg);
+  fireChat.sendMessage('-KGSfZGEbRU5tSOCKH6v', chatMsg,'default', function(msg) {
+    $('.panel-body').append(msg);
+  });
+});
+
+fireChat.on('message-add', function (message) {
+  console.log(message);
+});
+
 
 
 }); // End of the line jQuery
