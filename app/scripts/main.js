@@ -21,7 +21,7 @@ $(function () {
           setTimeout(function () {
             $('header').animate({
               height: '8vh'
-            });
+            }).css('background-color', 'transparent');
             welcome.show('slow');
           }, 500);
           console.log(authData);
@@ -38,7 +38,7 @@ $(function () {
   fireChat.setUser(authData.uid, authData[authData.provider].username, function (user) {
     console.log(user);
     intro.remove();
-    
+
   });
   $('.userName').text(authData.github.username);
 }
