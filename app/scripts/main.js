@@ -4,7 +4,8 @@ $(function () {
 
   //firebase
   var firebaseRef = new Firebase('https://ffl-chat.firebaseio.com/');
-  console.log(firebaseRef);
+  var fireChat = new Firechat(firebaseRef);
+  console.log(fireChat);
   var Login = $('#Login');
     Login.click(function() {
       console.log('hello');
