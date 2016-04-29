@@ -4,13 +4,14 @@ $(function () {
 
   var welcome = $('#welcome');
   var intro = $('#intro');
+  var spinner = $('#spinner');
+  spinner.hide();
   intro.show();
   welcome.hide();
 
   //firebase
   var firebaseRef = new Firebase('https://ffl-chat.firebaseio.com/');
   var fireChat = new Firechat(firebaseRef);
-  console.log(fireChat);
   var Login = $('#Login');
     Login.click(function() {
       firebaseRef.authWithOAuthPopup('github', function (error, authData) {
@@ -18,12 +19,14 @@ $(function () {
           console.log(error);
         } else {
           intro.hide();
+          spinner.show();
           setTimeout(function () {
             $('header').animate({
               height: '8vh'
             }).css('background-color', 'transparent');
+            spinner.hide();
             welcome.show('slow');
-          }, 500);
+          }, 1500);
           console.log(authData);
         }
       });
@@ -38,7 +41,6 @@ $(function () {
   fireChat.setUser(authData.uid, authData[authData.provider].username, function (user) {
     console.log(user);
     intro.remove();
-
   });
   $('.userName').text(authData.github.username);
 }
@@ -64,14 +66,27 @@ var chatForm = $('#chatForm');
 chatForm.submit(function (elof) {
   elof.preventDefault();
   var chatMsg = $('#chatMsg').val();
-  console.log(chatMsg);
-  fireChat.sendMessage('-KGSfZGEbRU5tSOCKH6v', chatMsg,'default', function(msg) {
-    $('.panel-body').append(msg);
-  });
+  if (chatMsg === '') {
+    return false;
+  } else {
+    fireChat.sendMessage('-KGSfZGEbRU5tSOCKH6v', chatMsg,'default', function(msg) {
+      $('.panel-body').append(msg);
+    });
+     $('#chatMsg').val('');
+  }
 });
+var roomId = '-KGSfZGEbRU5tSOCKH6v';
+var messages = new Firebase('https://ffl-chat.firebaseio.com/room-messages/' + roomId);
 
-fireChat.on('message-add', function (message) {
-  console.log(message);
+var output = messages + roomId;
+console.log(output);
+messages.on('child_added', function(snapshot, prevChildKey) {
+  var newMessage = snapshot.val();
+  console.log(newMessage);
+  // console.log(newMessage.message);
+  //chatArea is a ul
+  var chatArea = $('#chatArea');
+  chatArea.append("<li>" + newMessage.name + ' says: ' + newMessage.message + "</li>");
 });
 
 
