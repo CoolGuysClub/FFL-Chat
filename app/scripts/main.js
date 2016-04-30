@@ -95,7 +95,9 @@ messages.on('child_added', function(snapshot, prevChildKey) {
   var chatArea = $('#chatArea');
   chatArea.append("<li>" + '<span>' +  newMessage.name + '</span>' + ' says: ' + newMessage.message + "</li>");
 });
-
+fireChat.getUsersByRoom(roomId,null, function (users) {
+  console.log('users', users);
+});
 
 
 }); // End of the line jQuery
