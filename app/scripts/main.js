@@ -35,14 +35,21 @@ $(function () {
   firebaseRef.onAuth(function (authData) {
     if (authData) {
       initChat(authData);
+      $('header').css('background-color', 'transparent');
     }
   });
   function initChat(authData) {
+    console.log('authData', authData);
   fireChat.setUser(authData.uid, authData[authData.provider].username, function (user) {
-    console.log(user);
     intro.remove();
+    console.log(user);
+    setTimeout(function () {
+      $('.userName').text(authData.github.username);
+    }, 1300);
   });
-  $('.userName').text(authData.github.username);
+  /* if already logged in, append "logged in as 'Tenkaklet'" else append  */
+
+
 }
 
 // Loggin the user out
@@ -86,7 +93,7 @@ messages.on('child_added', function(snapshot, prevChildKey) {
   // console.log(newMessage.message);
   //chatArea is a ul
   var chatArea = $('#chatArea');
-  chatArea.append("<li>" + newMessage.name + ' says: ' + newMessage.message + "</li>");
+  chatArea.append("<li>" + '<span>' +  newMessage.name + '</span>' + ' says: ' + newMessage.message + "</li>");
 });
 
 
