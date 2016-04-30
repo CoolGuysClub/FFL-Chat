@@ -97,14 +97,13 @@ console.log(output);
 messages.on('child_added', function(snapshot, prevChildKey) {
   var newMessage = snapshot.val();
   // console.log(newMessage);
-  // console.log(newMessage.message);
+  console.log(newMessage.timestamp);
+  var time = moment(newMessage.timestamp).startOf('minutes').fromNow();
+  console.log(time);
   //chatArea is a ul
   var chatArea = $('#chatArea');
-  chatArea.append("<li>" + '<span>' +  newMessage.name + '</span>' + ' says: ' + newMessage.message + "</li>");
+  chatArea.append("<li>" + '<span>' +  newMessage.name + ' ' + '</span> <em>' + time + '</em> says: ' + newMessage.message + "</li>");
 });
-// fireChat.getUsersByRoom('-KGSfZGEbRU5tSOCKH6v', function (users) {
-//   console.log('users', users);
-// });
 var usersOnlineRef = new Firebase('https://ffl-chat.firebaseio.com/user-names-online');
 usersOnlineRef.on('value', function (users) {
   var onlineUsers = users.val();

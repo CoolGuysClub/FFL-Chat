@@ -4,7 +4,8 @@
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.1",
-    "firechat": "^2.0.1"
+    "firechat": "^2.0.1",
+    "moment": "^2.13.0"
   },
   "overrides": {
     "bootstrap-sass": {
