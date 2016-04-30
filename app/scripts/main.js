@@ -32,8 +32,13 @@ $(function () {
       });
     });
 
+    var newUser = true;
   firebaseRef.onAuth(function (authData) {
-    if (authData) {
+    if (authData && newUser) {
+      firebaseRef.child('users').child(authData.uid).set({
+        name: authData.github.username,
+        avatar: authData.github.profileImageURL
+      });
       initChat(authData);
       $('header').css('background-color', 'transparent');
     }
@@ -61,10 +66,7 @@ $('#Logout').click(function() {
 fireChat.getRoomList(function (room) {
   console.log(room);
 });
-//get specific room metadata
-fireChat.getRoom('-KGSfZGEbRU5tSOCKH6v', function (roomId) {
-  console.log(roomId);
-});
+
 // function roomId() {
 //
 // }
@@ -85,19 +87,30 @@ chatForm.submit(function (elof) {
 var roomId = '-KGSfZGEbRU5tSOCKH6v';
 var messages = new Firebase('https://ffl-chat.firebaseio.com/room-messages/' + roomId);
 
+//get specific room metadata
+fireChat.getRoom(roomId, function (roomId) {
+  console.log(roomId);
+});
+
 var output = messages + roomId;
 console.log(output);
 messages.on('child_added', function(snapshot, prevChildKey) {
   var newMessage = snapshot.val();
-  console.log(newMessage);
+  // console.log(newMessage);
   // console.log(newMessage.message);
   //chatArea is a ul
   var chatArea = $('#chatArea');
   chatArea.append("<li>" + '<span>' +  newMessage.name + '</span>' + ' says: ' + newMessage.message + "</li>");
 });
-fireChat.getUsersByRoom(roomId,null, function (users) {
-  console.log('users', users);
+// fireChat.getUsersByRoom('-KGSfZGEbRU5tSOCKH6v', function (users) {
+//   console.log('users', users);
+// });
+var usersOnlineRef = new Firebase('https://ffl-chat.firebaseio.com/user-names-online');
+usersOnlineRef.on('value', function (users) {
+  var onlineUsers = users.val();
+  console.log(onlineUsers);
 });
-
-
+fireChat.on('user-update', function (userChange) {
+  console.warn(userChange);
+});
 }); // End of the line jQuery
